@@ -3,7 +3,13 @@
 #
 ## Created: BF Voight
 ## on: 04-08-2021
-##
+
+###########################
+## 0. Overview
+#
+# This is a very short primer, with examples
+# of working in R, data types, examples, loading data
+# primer with those with zero experiences in R
 
 ###########################
 ## I. Arthmetic Operation
