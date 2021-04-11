@@ -1,5 +1,6 @@
 ## ITMATEd MSTR
-## Intro to R Workshop
+## Intro to R Workshop -- Day One
+#
 #
 ## Created: BF Voight
 ## on: 04-08-2021
