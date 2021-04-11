@@ -295,12 +295,63 @@ GTEx_data[1:5,1:5]
 #
 # Up to this point, we've given you a crash course in "base R"
 #
-# There's a hand
+# There's a handy toolkit called 'tidyverse' that provides a framework
+# for doing good, clean, repoducible data science 
+#
+# along with a toolkit of libraries to help you do that
+#
+# At this point, we've already loaded the library we wanted
+library(tidyverse)
+
+# and data set we wanted
+GTEx_data
+
+# Data comes in different ways, so let's convert it into a "tibble" (tbl, or table)
+# friendly to tidyverse
+tibble(GTEx_data)
+
+# let's make a copy of it
+# NOTE: that a 'tibble' is not a 'data.frame'
+GTEx_data_tbl <- tibble(GTEx_data)
+
+# OK, now we're ready to start working with the data.
+# tidyverse gives a entire slew of functions that you can use
+# if you wanted a quick list, see here:
+#
+# https://dplyr.tidyverse.org/reference/index.html
+# https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf
+# 
+
+mutate()
+select()
+filter()
+summarise()
+arrange()
+
+rename()
 
 
 
-
-
+# Let's start building up our workflows a little bit more.
+# for that, I need to introduce you to another operator:
+#
+# %>%
+#
+# aka the "pipe" operator
+#
+# This passes the object (noun) on the left side to the function (verb) on the right side
+#
+# x %>% f(y) 		is the same as 			f(x,y)
+# y %>% f(x, ., z) 		is the same as 			f(x,y,z)
+#
+# this allows one to "chain" together objects (nouns) to a series of function (verbs)
+# that you want done.
+#
+# e.g., remember the challenge problem 
+# >> 4. How many species of virginica have a Petal width greater than 2.0?
+#
+# it was easy to think about this in multiple steps, but you can build that up
+# with tidyverse very easily
 
 
 
@@ -358,7 +409,6 @@ mean(std_sl)
 sd(std_sl)
 
 
-
 #######################
 # Break-out Questions for VII
 #
@@ -373,5 +423,5 @@ read.table(file="genes.table",sep=" ",header=T)
 
 # 2. In GTEx data, which genes have greater tpm than 10000 in Liver? Anything you notice in common?
 GTEx_data[GTEx_data$Liver > 10000,]
-
+# Yep, MT suggest mitochondrial data. That said, HP and ALB are good positive controls too.
 
