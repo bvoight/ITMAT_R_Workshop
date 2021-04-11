@@ -15,13 +15,13 @@
 # Available at: 
 # https://github.com/bvoight/ITMAT_R_Workshop
 #
+# Some short slides are also available at:
+# http://bit.ly/ITMATEd_R_Workshop
 #
-# FOr this, you need to install R for your operating system
-#
+# For this, you need to install R for your operating system:
 # http://cran.wustl.edu/
 # 
 # Then RStudio for your operating system:
-#
 # https://www.rstudio.com/products/rstudio/download/#download
 #
 # Once both are installed, boot up RStudio and let's begin!

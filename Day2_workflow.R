@@ -10,26 +10,29 @@
 ## 0. Overview
 #
 # This is a very short primer, with examples
-# of working in R, data types, examples, loading data
-# primer with those with zero experiences in R
+# of plotting in R via ggplot2
+#
+# and a creating a github account to make pipelines
+# for your work
 #
 # Available at: 
 # https://github.com/bvoight/ITMAT_R_Workshop
 #
+# Some short slides are also available at:
+# http://bit.ly/ITMATEd_R_Workshop
 #
 # I've assumed you've already gone through Day 1
-#
 # which means at least you have R, Rstudio installed
-#
-# http://cran.wustl.edu/
-# 
-# https://www.rstudio.com/products/rstudio/download/#download
-#
-#
 # and that you know about some BaseR syntax
-# 
 # as well as a bit of tidyverse syntax
-
+#
+# For setup here, please go to github and create an account:
+# https://github.com/join
+#
+# After you have created an account, download and install
+# github desktop on your machine:
+# https://desktop.github.com/
+#
 
 ############################
 ## I. 
