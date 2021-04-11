@@ -13,8 +13,17 @@
 #
 # Available at: 
 # https://github.com/bvoight/ITMAT_R_Workshop
-
-
+#
+#
+# FOr this, you need to install R for your operating system
+#
+# http://cran.wustl.edu/
+# 
+# Then RStudio for your operating system:
+#
+# https://www.rstudio.com/products/rstudio/download/#download
+#
+# Once both are installed, boot up RStudio and let's begin!
 
 ###########################
 ## I. Arthmetic Operations (5 min)
@@ -301,6 +310,10 @@ GTEx_data[1:5,1:5]
 #
 # There's a handy toolkit called 'tidyverse' that provides a framework
 # for doing good, clean, repoducible data science 
+#
+# you can find more at:
+#
+# https://r4ds.had.co.nz/
 #
 # along with a toolkit of libraries to help you do that
 #
