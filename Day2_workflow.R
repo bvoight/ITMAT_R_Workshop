@@ -1,5 +1,5 @@
 ## ITMATEd MSTR
-## Intro to R Workshop -- Day One
+## Intro to R Workshop -- Day Two
 #
 #
 ## Created: BF Voight
