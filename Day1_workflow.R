@@ -17,7 +17,7 @@
 
 
 ###########################
-## I. Arthmetic Operations
+## I. Arthmetic Operations (5 min)
 #
 # R as a calculator definitely works
 1+1
@@ -219,7 +219,7 @@ iris[iris$Sepal.Length == 5.1,]   #This works too, but you avoid creating sel if
 
 
 ###############################################
-# Break out Questions for Part V and VI
+# Break out Questions for Part V, VI, VII
 #
 # for these questions, use the iris data set
 # 
@@ -238,7 +238,7 @@ iris[iris$Sepal.Length == 5.1,]   #This works too, but you avoid creating sel if
 
 
 ###################################
-## VII. Loading data into R!
+## VIII. Loading data into R!
 #
 # OK, let's take your first big step: let's load some data into R
 #
@@ -282,7 +282,7 @@ GTEx_data[1:5,1:5]
 
 
 #######################
-# Break-out Questions for VII
+# Break-out Questions for VIII
 #
 # 1a. Download the following and place into your directory
 #  
@@ -295,7 +295,7 @@ GTEx_data[1:5,1:5]
 
 
 ##############################################
-# VIII-A. Crash course in Tidyverse
+# IX. Crash course in Tidyverse
 #
 # Up to this point, we've given you a crash course in "base R"
 #
@@ -359,7 +359,7 @@ mutate(expr_liver_panc, liver_gt = Liver > Pancreas)
 
 
 ###############################################
-# Break out Questions for Parts VIII-A
+# Break out Questions for Part IX
 #
 # Using Tidyverse:
 #
@@ -371,7 +371,7 @@ mutate(expr_liver_panc, liver_gt = Liver > Pancreas)
 
 
 ###############################################
-# VIII-B. Crash course in Tidyverse - 'Ce n'est pas une pipe'
+# X. Crash course in Tidyverse - 'Ce n'est pas une pipe'
 #
 # Let's start building up our workflows a little bit more.
 # for that, I need to introduce you to another operator:
@@ -452,8 +452,8 @@ my_t2d_tbl
 
 # Magnifique!!
 
-#########################################
-## Break out Questions for Parts VIII-B
+####################################
+## Break out Questions for Parts X
 #
 # 1. Above, you can see that MC4R is not well express in any of these tissues.
 #    Identify the tissue with the highest expression of MC4R, and add that tissue to your table!
@@ -502,7 +502,7 @@ list2 <- rnorm(1000,mean=0.1,sd=sqrt(1))
 t.test(list1,list2)
 
 ###############################################
-# Answers to Break out Questions for Part V and VI
+# Answers to Break out Questions for Part V, VI, VII
 #
 # for these questions, use the iris data set
 # 
@@ -532,7 +532,7 @@ sd(std_sl)
 
 
 #######################
-# Answers to Break-out Questions for VII
+# Answers to Break-out Questions for VIII
 #
 # 1a. Download the following and place into your directory
 #  
@@ -549,7 +549,7 @@ GTEx_data[GTEx_data$Liver > 10000,]
 
 
 ###############################################
-# Answers to Break out Questions for Parts VIII-A
+# Answers to Break out Questions for Part IX
 #
 # Using Tidyverse:
 #
@@ -564,7 +564,7 @@ my_t2d_tbl <- filter(GTEx_data_tbl, Description == "PNPLA3")
 my_t2d_tbl <- select(my_t2d_tbl, Description, Pancreas, Adipose...Subcutaneous, Adipose...Visceral..Omentum., Liver, Muscle...Skeletal)
 
 #########################################
-## Break out Questions for Parts VIII-B
+## Break out Questions for Part X
 #
 # 1. Above, you can see that MC4R is not well express in any of these tissues.
 #    Identify the tissue with the highest expression of MC4R, and add that tissue to your table!
