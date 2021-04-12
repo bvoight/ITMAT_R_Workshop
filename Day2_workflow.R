@@ -156,10 +156,6 @@ hist(iris$Sepal.Length, n=16)
 boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Length, iris$Petal.Width, main="t")
 
 # Feels like we need to set some asethetics about the plot
-?boxplot
-?hist
-?plot
-
 # mostly in base R:
 #
 # xlab, ylab: Labels for the x and y axes
@@ -179,12 +175,63 @@ boxplot(iris[,1:4],
         xlab="Traits",
         names=c("Sepal Length", "Sepal Width", "Petal Length", "Petal Width"))
 
-
 #########################
 # Question for Part II
 #
-# 1. 
+# 1. Create a scatter plot of Sepal Length by Petal Length
+#    where each species is a different color
+#    and have different points for them -- Hint: you can force as a number with as.integer()
+
+# 2. use rnorm() to create 10000 random draws from a gaussian with mean=1, variance=4
+#    Plot a histogram of the output
+
+
+###################
+# III. Plotting in Base-R
+#
+# 
+
+
+
+
+
+
+
+
+
+
+
 
 ###########################
 ## write plot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########################
+# Answers for Question for Part II
+#
+# 1. Create a scatter plot of Sepal Length by Petal Length
+#    where each species is a different color
+#    and have different points for them -- Hint: you can force as a number with as.integer()
+plot(iris$Sepal.Length,iris$Petal.Length, col=iris$Species, pch=as.integer(iris$Species))
+
+## 2. use rnorm() to create 10000 random draws from a gaussian with mean=1, variance=4
+#    Plot a histogram of the output
+z <- rnorm(10000,mean=1,sd=2)
+hist(z, bin=256)
 
