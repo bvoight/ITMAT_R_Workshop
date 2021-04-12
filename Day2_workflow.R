@@ -211,9 +211,8 @@ dev.off()
 # Many thanks to Ophir Shalem who made these slides 
 
 
-
 ###################
-# IV. Data and Aesthetics in ggplot
+# IV. Data, Aesthetics, and geometries in ggplot
 #
 # Let's return to our GTEX data set:
 GTEx_data <- read.table(file="GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz", header=T, sep="\t", skip=2)
@@ -221,37 +220,244 @@ GTEx_data_tbl <- tibble(GTEx_data)
 
 # Ok, let's first prepare a little bit of data that we WANT to plot. 
 # Read the code below - what are we doing here?
-t2d_genelist <- c("TCF7L2", "MC4R", "SLC30A8", "FTO", "PNPLA3")
+g1 <- GTEx_data_tbl %>%
+  filter(Description == "TCF7L2") %>%
+  select(-Name,-Description) %>%
+  t() %>%
+  as.data.frame() %>%
+  rownames_to_column(var="tissue") %>%
+  as_tibble() %>%
+  mutate(gene="TCF7L2")
 
-data_forplot <- GTEx_data_tbl %>%
-            
-  filter(Description %in% t2d_genelist) %>%
-  select(Description, Pancreas, Adipose...Subcutaneous, Adipose...Visceral..Omentum., Liver, Muscle...Skeletal) %>%
-  rename(geneid = Description, AdiposeSubCutaneous = Adipose...Subcutaneous, AdiposeVisceral = Adipose...Visceral..Omentum., SkeletalMuscle = Muscle...Skeletal)
-my_t2d_tbl
+g2 <- GTEx_data_tbl %>%
+  filter(Description == "GCK") %>%
+  select(-Name,-Description) %>%
+  t() %>%
+  as.data.frame() %>%
+  rownames_to_column(var="tissue") %>%
+  as_tibble() %>%
+  mutate(gene="GCK")
 
+g3 <- GTEx_data_tbl %>%
+  filter(Description == "FTO") %>%
+  select(-Name,-Description) %>%
+  t() %>%
+  as.data.frame() %>%
+  rownames_to_column(var="tissue") %>%
+  as_tibble() %>%
+  mutate(gene="FTO")
 
+data_forplot <- bind_rows(g1,g2,g3) %>%
+  rename(gexp=V1)
 
+# OK, let's use this data to make plots using ggplot2
+#
+# First, we begin with creating the data and "aes"thestics
+p1 <- ggplot(data_forplot, aes(gene,gexp))
 
+# Second, let's add a boxplot, the "geometry"
+p1 + geom_boxplot() 
 
+# we could have done with a different type of geometry
+p1 + geom_violin()
 
+# let's try another example
+p2 <- ggplot(data_forplot, aes(gexp))
+p2 + geom_histogram(aes(fill=gene))
+
+# hmm. maybe we need this as a density
+p2 + geom_density(aes(fill=gene),alpha=0.8)
 
 
 ###########################
-## write plot
+## Questions -- Part IV
+#
+# 1. Create a scatter plot comparing the expression of Liver
+#    and Pancreas, excluding genes with tpm > 10000
+#
+# 2. Repeat above, except for 
+#    Brain...Hippocampus
+#    Brain...Cortex
+
+###################
+# V. Facets in ggplot
+#
+# Facets are designed to help make plots when your data
+# is divided up into groups
+
+# Let's try that out with tissues as the group
+p1 + geom_point() + facet_wrap(~tissue)
+
+# whoa that worked! but that's too much. let's subset and replot
+tissue_subset <- c("Pancreas", "Adipose...Subcutaneous", "Adipose...Visceral..Omentum.", "Liver", "Muscle...Skeletal", "Brain...Hypothalamus")
+ss_data_forplot <- data_forplot %>%
+  filter(tissue %in% tissue_subset)
+
+p5 <- ggplot(ss_data_forplot, aes(gene,gexp))
+p5 + geom_point() + facet_wrap(~tissue)
+
+# You can change up the number of columns:
+p5 + geom_point() + facet_wrap(~tissue, ncol=2)
+
+
+###################
+# VI. Coordinates and plot labelling (Themes) in ggplot
+#
+# You can specify the range and dimensionality of how you plot
+# things in ggplot 
+#
+# probably the most handy thing is to zoom in / zoom out of plots as you 
+# needed to.
+
+# let's do that with a plot we just made:
+data_forplot_q1 <- GTEx_data_tbl %>%
+  select(Liver,Pancreas)
+
+p3 <- ggplot(data_forplot_q1, aes(x=Liver,y=Pancreas))
+p3 + geom_point()
+
+# This view is not great. Let's zoom in!
+# I prefer this method to having ggplot2 "remove" the points
+p3 + 
+  geom_point() + 
+  coord_cartesian(xlim=c(0,5000), ylim=c(0,5000))
+
+# Let's walk through some labelling feature on your plots
+# labs() does a lot
+#
+# title:    # set the title of your plot
+# x:        # changes the x axis label
+# y:        # changes the y axis label
+
+p3 + 
+  geom_point() + 
+  coord_cartesian(xlim=c(0,5000), ylim=c(0,5000)) +
+  labs(title="Expression of Pancreas vs. Liver in GTEx", x="Liver (GTEx)", y="Pancreas (GTEx)")
+
+# theme() let's you change a lot of things as well
+# particularly around sizing
+#
+# plot.title=element_text(size=25):        # change the size of the title
+# axis.title.x=element_text(size=25):      # change the size of x-axis title (Pancreas)
+# axis.title.y=element_text(size=25):      # change the size of y-axis label (Liver)
+# axis.text.x=element_text(size=25):       # change the size of the x-axis text
+# axis.text.y=element_text(size=25):       # change the size of the y-axis text
+
+p3 + 
+  geom_point() + 
+  coord_cartesian(xlim=c(0,5000), ylim=c(0,5000)) +
+  labs(title="Expression of Pancreas vs. Liver in GTEx", x="Liver (GTEx)", y="Pancreas (GTEx)") +
+  theme(plot.title=element_text(size=11)) +
+  theme(axis.title.x=element_text(size=11), axis.title.y=element_text(size=11)) +
+  theme(axis.text.x=element_text(size=6), axis.text.y=element_text(size=6))
+
+# geom_point() also has arguments we can use
+#
+# color="steelblue"           # change the color of points used
+# size=1.5                  # change the size of the points plotted
+p3 + 
+  geom_point(color="steelblue", size=1.5) + 
+  coord_cartesian(xlim=c(0,5000), ylim=c(0,5000)) +
+  labs(title="Expression of Pancreas vs. Liver in GTEx", x="Liver (GTEx)", y="Pancreas (GTEx)") +
+  theme(plot.title=element_text(size=11)) +
+  theme(axis.title.x=element_text(size=11), axis.title.y=element_text(size=11)) +
+  theme(axis.text.x=element_text(size=6), axis.text.y=element_text(size=6))
+
+# let's take a closer look at that set of correlated genes
+data_forplot_q1_pluscorr <- data_forplot_q1 %>%
+  mutate(corrsub = (Pancreas > 500 & Liver > 100 & Liver < 1000))
+
+p3 <- ggplot(data_forplot_q1_pluscorr, aes(x=Liver,y=Pancreas))
+
+# We can use that label we just 'mutated' as an aesthetic to color the plot
+# 
+# geom_point(aes(color=corrsub))    # use corrsub as a label color points on the plot
+p3 +
+  geom_point(aes(color=corrsub), size=1.5) + 
+  coord_cartesian(xlim=c(0,5000), ylim=c(0,5000)) +
+  labs(title="Expression of Pancreas vs. Liver in GTEx", x="Liver (GTEx)", y="Pancreas (GTEx)") +
+  theme(plot.title=element_text(size=11)) +
+  theme(axis.title.x=element_text(size=11), axis.title.y=element_text(size=11)) +
+  theme(axis.text.x=element_text(size=6), axis.text.y=element_text(size=6))
+
+# don't like this coloring set? swap in another
+#
+# You can check out some of the options here:
+# https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html
+# 
+# scale_colour_brewer(palette = "Set1")     #Set the color theme to "Set1"
+p3 +
+  scale_colour_brewer(palette = "Set1") +
+  geom_point(aes(color=corrsub), size=1.5) + 
+  coord_cartesian(xlim=c(0,5000), ylim=c(0,5000)) +
+  labs(title="Expression of Pancreas vs. Liver in GTEx", x="Liver (GTEx)", y="Pancreas (GTEx)") +
+  theme(plot.title=element_text(size=11)) +
+  theme(axis.title.x=element_text(size=11), axis.title.y=element_text(size=11)) +
+  theme(axis.text.x=element_text(size=6), axis.text.y=element_text(size=6))
+
+# You can also change axis ticks and location
+#
+# scale_x_continuous(breaks=c(0,1250,2500,3750,5000))  # change how the x axis is listed
+# scale_y_continuous(breaks=seq(0,5000,1250))          # change how the y axis is listed
+#                                                      # seq() is handy here. Same as above.
+p3 +
+  scale_colour_brewer(palette = "Set1") +
+  geom_point(aes(color=corrsub), size=1.5) + 
+  coord_cartesian(xlim=c(0,5000), ylim=c(0,5000)) +
+  labs(title="Expression of Pancreas vs. Liver in GTEx", x="Liver (GTEx)", y="Pancreas (GTEx)") +
+  theme(plot.title=element_text(size=11)) +
+  theme(axis.title.x=element_text(size=11), axis.title.y=element_text(size=11)) +
+  theme(axis.text.x=element_text(size=6), axis.text.y=element_text(size=6)) +
+  scale_x_continuous(breaks=c(0,1250,2500,3750,5000)) +
+  scale_y_continuous(breaks=seq(0,5000,1250))
+
+###################
+# VII. Let's make your own plots
+#
+# This is what you hopefully came here for
+# 
+# First, place your data set in your 'repository' directory
+#
+# second, imagine what plot you would like to create. Can you draw it
+# on a whiteboard graph? did you plot it in excel? 
+# If so, then probably ggplot can make it 
+# 
+# Next, use "myfirstRnotebook.R" to create a little pipeline to
+#
+# - load in the data into R
+# - use tidyverse to create the 'subset' of columns or other features you want to plot
+# - use ggplot to create the plot of interest
+# - evolve the plot with the visual appeal that you want
+#
+# Try it out on your own, remember to write a /little/ bit of code first
+# then expand it out, step by step!
+# call me over if you are stuck or want to brainstorm
+
+
+###################
+# VIII. Push your pipeline to github
+#
+# You can do this periodically, or at the very
+# end (when you are finished)
+#
+# pop open github desktop
+# commit your changes
+# push your changes to your repo
+#
+# Volia! You have taken a small step into a bigger
+# tidier, ggplottier world.
 
 
 
+##########################
+## END OF WORKSHOP DAY 2##
+##########################
 
 
 
-
-
-
-
-
-
-
+##############################################
+###### SPOILER ALERT -- ANSWERS BELOW ########
+##############################################
 
 
 
@@ -270,5 +476,26 @@ hist(z, n=32)
 #    and have different points for them -- Hint: you can force as a number with as.integer()
 plot(iris$Sepal.Length,iris$Petal.Length, col=iris$Species, pch=as.integer(iris$Species))
 
+###########################
+## Answers to Questions -- Part IV
+#
+# 1. Create a scatter plot comparing the expression of Liver
+#    and Pancreas, excluding genes with tpm > 10000
+data_forplot_q1 <- GTEx_data_tbl %>%
+  select(Liver,Pancreas) %>%
+  filter(Liver < 10000, Pancreas < 10000)
 
+p3 <- ggplot(data_forplot_q1, aes(x=Liver,y=Pancreas))
+p3 + geom_point()
+
+# 2. Repeat above, except for 
+#    Brain...Hippocampus
+#    Brain...Cortex
+
+data_forplot_q2 <- GTEx_data_tbl %>%
+  select(Brain...Hippocampus,Brain...Cortex) %>%
+  filter(Brain...Hippocampus < 10000, Brain...Cortex < 10000)
+
+p4 <- ggplot(data_forplot_q2, aes(x=Brain...Hippocampus,y=Brain...Cortex))
+p4 + geom_point()
 
