@@ -34,7 +34,6 @@
 # https://desktop.github.com/
 #
 ####
-#
 
 ## First, let's do a little bit of setup.
 #
@@ -45,7 +44,7 @@
 library(tidyverse)
 
 ############################
-## I. Your first repository
+## I. Creating your first repository
 #
 # I personally think the *easiest* way to create a new repository
 # is to do it on your account on github
@@ -123,7 +122,69 @@ library(tidyverse)
 #
 # Done! Let's check online and there you have it, your R notebook is up there
 
+#########################
+# Follow-up Questions: Part I
+#
+# 1. Since I'm a generous person and I want you to have everything, please
+# feel free to clone the materials online
+#
+# this include material from Day One, so you won't feel left out!
+#
+# You can find it at: 
+#
+# https://github.com/bvoight/ITMAT_R_Workshop
+
+###################
+# II. Plotting in Base-R
+#
+# At the very basic level, R provides capabilities to plot data
+
+# let's go back to our iris example
+iris
+
+# we can make very basic plots using, well, plot()
+?plot
+plot(iris$Sepal.Length,iris$Sepal.Width)
+
+# let's make a histogram of data instead
+hist(iris$Sepal.Length)
+
+# mmm these bins are too wide, let's make more of them
+hist(iris$Sepal.Length, n=16)
+
+# Let's make a boxplot instead
+boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Length, iris$Petal.Width, main="t")
+
+# Feels like we need to set some asethetics about the plot
+?boxplot
+?hist
+?plot
+
+# mostly in base R:
+#
+# xlab, ylab: Labels for the x and y axes
+# main:       main title for the figure
+# 
+# xlim, ylim: set the limts for the the range of x and y axes
+# 
+# col:        change the coloring for the plot
+# pch:        type of points that are used (e.g., *, circle, triangle, etc.)
+# cex:        sizing for the points you are using
+
+# ok let's revamp our boxplot a little bit
+boxplot(iris[,1:4], 
+        col=c("red","orange","green", "blue"), 
+        ylim=c(0,10), 
+        ylab="Measured Value",
+        xlab="Traits",
+        names=c("Sepal Length", "Sepal Width", "Petal Length", "Petal Width"))
 
 
+#########################
+# Question for Part II
+#
+# 1. 
 
+###########################
+## write plot
 

@@ -464,6 +464,17 @@ my_t2d_tbl <- GTEx_data %>%
   rename(geneid = Description, AdiposeSubCutaneous = Adipose...Subcutaneous, AdiposeVisceral = Adipose...Visceral..Omentum., SkeletalMuscle = Muscle...Skeletal)
 my_t2d_tbl
 
+# And finally, let's write this table to a file and save it for posterity
+#
+# we can use the write.table() function for that:
+write.table(my_t2d_tbl,file="my_t2d_tbl.csv",sep=",",quote=FALSE,row.names=FALSE,col.names=TRUE)
+
+# file="my_t2d_tbl.csv"     # the name of the file that will be created where the stored table is printed
+# sep=","                   # how the columns will be separate, here, I choose a comma to format as a .csv
+# quote=FALSE               # don't put quotation marks around each of my entries
+# row.names=FALSE           # don't include row name in the output file
+# col.names=TRUE            # DO include the column names in the output file.
+
 # Magnifique!!
 
 ####################################
@@ -471,7 +482,9 @@ my_t2d_tbl
 #
 # 1. Above, you can see that MC4R is not well express in any of these tissues.
 #    Identify the tissue with the highest expression of MC4R, and add that tissue to your table!
-
+#
+# 2. use the write.table() function to output your table to a file named "myT2D_table.txt"
+#    
 
 ##########################
 ## END OF WORKSHOP DAY 1##
