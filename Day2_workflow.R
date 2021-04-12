@@ -52,7 +52,7 @@ library(tidyverse)
 #
 # then, clone that onto your machine and add things accordingly
 #
-# https://github.com/ -> Log in -> click on '+' icon in upper left 
+# https://github.com/ -> Log in -> click on '+' icon in upper right 
 # -> new repository 
 #
 # Name it what you'd like
@@ -65,9 +65,65 @@ library(tidyverse)
 #
 # "Choose a License" -> MIT License
 
+#####
 # Great! You've made your first repo. Now, let's place this onto your
-# computer.
+# computer. Lots of ways to do this, but here's one:
 #
-# Open 
+# First, click on the green "code" button and copy the link (click on the 'clipboard' icon)
+# 
+# Second, open github desktop --> Options --> Sign in
+#
+# Then, click on "Current Repository" --> Add --> paste the link under "Repository URL"
+# 
+# Finally, set "Local path" to be your ITMAT_workshop directory
+#
+# click "clone"!
+
+######
+# Wondrous! The working directory of that now can be used to
+# stage edits/updates to this repo.
+#
+# The cycle of github-ery that you will generally follow here is:
+#
+# 1. PULL. Before you start work, make sure that your local version
+#    is the most up-to-date.
+# 2. EDIT. Make edits, add files, and stage changes. Nicely, github desktop will 'track'
+#    What changes you have made to that local directory.
+# 3. COMMIT. Review the changes that you have made. Usually, you want to keep are all 
+#    in there. But github gives you the option of choosing what you put forth or remove.
+# 4. PUSH. After you commit, you then send (push) your version to your master repo
+#    that is on the cloud. 
+#
+# You can then cycle through these steps (particularly 2-4) as many times as you
+# want to make updates to your repo.
+
+#######
+# Ok, let's try it out.
+#
+# first, let's make a new .R file in Rstudio
+#
+# Click Green + and Paper icon (upper left) --> "R Script"
+#
+# let's add a wee bit of content -- you can follow along with this
+#
+# then let's save it to the repo directory
+
+########
+# great! Now if we turn back to github desktop, it has the new
+# file tracked as 'changed' (added) with the content you just made
+#
+# We can add a little description
+#
+# then click the blue "commit to main" button
+#
+# OK, we're not quite done yet. We can stage a bunch of adds, but they
+# don't go up on your cloud repo until you press the
+#
+# blue "PUSH ORIGIN" button
+#
+# Done! Let's check online and there you have it, your R notebook is up there
+
+
+
 
 
