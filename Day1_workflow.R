@@ -417,23 +417,23 @@ iris %>%
 # there you have "two steps" that you want to achieve.
 
 # step one: filter for the gene name
-GTEx_data %>%
+GTEx_data_tbl %>%
   filter(Description == "PNPLA3")
 
 # step two: select only the columns from this that you want
-GTEx_data %>%
+GTEx_data_tbl %>%
   filter(Description == "PNPLA3") %>%
   select(Description, Pancreas, Adipose...Subcutaneous, Adipose...Visceral..Omentum., Liver, Muscle...Skeletal)
 
 # Voila! But let's build it out more.
 # tidy up the column names too while we're at it:
-GTEx_data %>%
+GTEx_data_tbl %>%
   filter(Description == "PNPLA3") %>%
   select(Description, Pancreas, Adipose...Subcutaneous, Adipose...Visceral..Omentum., Liver, Muscle...Skeletal) %>%
   rename(geneid = Description, AdiposeSubCutaneous = Adipose...Subcutaneous, AdiposeVisceral = Adipose...Visceral..Omentum., SkeletalMuscle = Muscle...Skeletal)
 
 # OK but now let's store this output in our variable:
-my_t2d_tbl <- GTEx_data %>%
+my_t2d_tbl <- GTEx_data_tbl %>%
               filter(Description == "PNPLA3") %>%
               select(Description, Pancreas, Adipose...Subcutaneous, Adipose...Visceral..Omentum., Liver, Muscle...Skeletal) %>%
               rename(geneid = Description, AdiposeSubCutaneous = Adipose...Subcutaneous, AdiposeVisceral = Adipose...Visceral..Omentum., SkeletalMuscle = Muscle...Skeletal)
@@ -458,7 +458,7 @@ t2d_genelist <- c("TCF7L2", "MC4R", "SLC30A8", "FTO", "PNPLA3")
 
 # let's get 'em all then using the %in% operator
 # OK but now let's store this output in our variable:
-my_t2d_tbl <- GTEx_data %>%
+my_t2d_tbl <- GTEx_data_tbl %>%
   filter(Description %in% t2d_genelist) %>%
   select(Description, Pancreas, Adipose...Subcutaneous, Adipose...Visceral..Omentum., Liver, Muscle...Skeletal) %>%
   rename(geneid = Description, AdiposeSubCutaneous = Adipose...Subcutaneous, AdiposeVisceral = Adipose...Visceral..Omentum., SkeletalMuscle = Muscle...Skeletal)
@@ -595,11 +595,11 @@ my_t2d_tbl <- select(my_t2d_tbl, Description, Pancreas, Adipose...Subcutaneous, 
 #
 # 1. Above, you can see that MC4R is not well express in any of these tissues.
 #    Identify the tissue with the highest expression of MC4R, and add that tissue to your table!
-mc4r_expr <- GTEx_data %>% filter(Description == "MC4R")
+mc4r_expr <- GTEx_data_tbl %>% filter(Description == "MC4R")
 max(mc4r_expr[,3:56])                      ## When you look, it's "Brain...Hypothalamus" that has it
 t(mc4r_expr) == max(mc4r_expr[,3:56])      ## this makes it a little easier to see
 
-my_t2d_tbl <- GTEx_data %>%
+my_t2d_tbl <- GTEx_data_tbl %>%
   filter(Description %in% t2d_genelist) %>%
   select(Description, Pancreas, Adipose...Subcutaneous, Adipose...Visceral..Omentum., Liver, Muscle...Skeletal, Brain...Hypothalamus) %>%
   rename(geneid = Description, AdiposeSubCutaneous = Adipose...Subcutaneous, AdiposeVisceral = Adipose...Visceral..Omentum., SkeletalMuscle = Muscle...Skeletal, BrainHypoT=Brain...Hypothalamus)

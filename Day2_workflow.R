@@ -175,25 +175,60 @@ boxplot(iris[,1:4],
         xlab="Traits",
         names=c("Sepal Length", "Sepal Width", "Petal Length", "Petal Width"))
 
+# let's save this to a plot
+pdf(file="myirisboxplot.pdf")
+
+# now when we plot, it'll print to a .pdf not to the plotting page of RStudio
+boxplot(iris[,1:4], 
+        col=c("red","orange","green", "blue"), 
+        ylim=c(0,10), 
+        ylab="Measured Value",
+        xlab="Traits",
+        names=c("Sepal Length", "Sepal Width", "Petal Length", "Petal Width"))
+
+# this tells pdf that it's done printing
+dev.off()
+
 #########################
 # Question for Part II
 #
-# 1. Create a scatter plot of Sepal Length by Petal Length
-#    where each species is a different color
-#    and have different points for them -- Hint: you can force as a number with as.integer()
-
-# 2. use rnorm() to create 10000 random draws from a gaussian with mean=1, variance=4
+# 1. use rnorm() to create 10000 random draws from a gaussian with mean=1, variance=4
 #    Plot a histogram of the output
+#
+# 2. Create a scatter plot of Sepal Length by Petal Length
+#    where each species is a different color
+#    and have different points for them -- Hint: you can force a list to be a number with as.integer()
+
 
 
 ###################
-# III. Plotting in Base-R
+# III. A short framework for thinking about plotting in R
 #
-# 
+# You can find the lecture slides in your (cloned) repo for the workshop
+#
+# ggplot_syntax.pdf
+#
+# Many thanks to Ophir Shalem who made these slides 
 
 
 
+###################
+# IV. Data and Aesthetics in ggplot
+#
+# Let's return to our GTEX data set:
+GTEx_data <- read.table(file="GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz", header=T, sep="\t", skip=2)
+GTEx_data_tbl <- tibble(GTEx_data)
 
+# Ok, let's first prepare a little bit of data that we WANT to plot. 
+# Read the code below - what are we doing here?
+t2d_genelist <- c("TCF7L2", "MC4R", "SLC30A8", "FTO", "PNPLA3")
+
+data_forplot <- GTEx_data_tbl %>%
+            
+  filter(Description %in% t2d_genelist) %>%
+  select(Description, Pancreas, Adipose...Subcutaneous, Adipose...Visceral..Omentum., Liver, Muscle...Skeletal) %>%
+  rename(geneid = Description, AdiposeSubCutaneous = Adipose...Subcutaneous, AdiposeVisceral = Adipose...Visceral..Omentum., SkeletalMuscle = Muscle...Skeletal)
+my_t2d_tbl
 
 
 
@@ -225,13 +260,15 @@ boxplot(iris[,1:4],
 #########################
 # Answers for Question for Part II
 #
-# 1. Create a scatter plot of Sepal Length by Petal Length
+## 1. use rnorm() to create 10000 random draws from a gaussian with mean=1, variance=4
+#    Plot a histogram of the output
+z <- rnorm(10000,mean=1,sd=2)
+hist(z, n=32)
+
+# 2. Create a scatter plot of Sepal Length by Petal Length
 #    where each species is a different color
 #    and have different points for them -- Hint: you can force as a number with as.integer()
 plot(iris$Sepal.Length,iris$Petal.Length, col=iris$Species, pch=as.integer(iris$Species))
 
-## 2. use rnorm() to create 10000 random draws from a gaussian with mean=1, variance=4
-#    Plot a histogram of the output
-z <- rnorm(10000,mean=1,sd=2)
-hist(z, bin=256)
+
 
