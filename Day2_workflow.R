@@ -144,16 +144,17 @@ iris
 
 # we can make very basic plots using, well, plot()
 ?plot
-plot(iris$Sepal.Length,iris$Sepal.Width)
+plot(x=iris$Sepal.Length,y=iris$Sepal.Width)
 
 # let's make a histogram of data instead
+?hist
 hist(iris$Sepal.Length)
 
 # mmm these bins are too wide, let's make more of them
 hist(iris$Sepal.Length, n=16)
 
 # Let's make a boxplot instead
-boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Length, iris$Petal.Width, main="t")
+boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Length, iris$Petal.Width)
 
 # Feels like we need to set some asethetics about the plot
 # mostly in base R:
@@ -249,10 +250,12 @@ g3 <- GTEx_data_tbl %>%
 
 data_forplot <- bind_rows(g1,g2,g3) %>%
   rename(gexp=V1)
+data_forplot
 
 # OK, let's use this data to make plots using ggplot2
 #
 # First, we begin with creating the data and "aes"thestics
+ggplot(data_forplot, aes(gene,gexp))
 p1 <- ggplot(data_forplot, aes(gene,gexp))
 
 # Second, let's add a boxplot, the "geometry"
@@ -266,7 +269,7 @@ p2 <- ggplot(data_forplot, aes(gexp))
 p2 + geom_histogram(aes(fill=gene))
 
 # hmm. maybe we need this as a density
-p2 + geom_density(aes(fill=gene),alpha=0.8)
+p2 + geom_density(aes(fill=gene),alpha=1.0)
 
 
 ###########################

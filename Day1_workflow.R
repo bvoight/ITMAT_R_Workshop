@@ -27,7 +27,7 @@
 # Once both are installed, boot up RStudio and let's begin!
 
 ###########################
-## I. Arthmetic Operations (5 min)
+## I. Arthmetic Operations
 #
 # R as a calculator definitely works
 1+1
@@ -241,7 +241,11 @@ iris[iris$Sepal.Length == 5.1,]   #This works too, but you avoid creating sel if
 #
 # Challenge:
 # 4. How many species of virginica have a Petal width greater than 1.5?
-#
+vironly <- iris[iris$Species == "virginica",]
+vironly <- vironly[vironly$Petal.Width > 1.5,]
+length(vironly[,1])
+dim(vironly)
+
 # 5. Create a list of Sepal Length that is standardized for all species (element minus mean divided by standard deviation)
 
 
@@ -288,7 +292,8 @@ iris[iris$Sepal.Length == 5.1,]   #This works too, but you avoid creating sel if
 GTEx_data <- read.table(file="GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz", header=T, sep="\t", skip=2)
 
 # let's look at the first 5 rows and the first 5 columns (for ease of viewing)
-GTEx_data[1:5,1:5]
+GTEx_data[c(1,2),c(1,2)]
+GTEx_data[,1]
 
 
 #######################

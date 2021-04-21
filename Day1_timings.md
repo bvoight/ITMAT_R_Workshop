@@ -11,7 +11,7 @@
 | Example         |        2       |  50                        |
 | BREAK/Questions |        5       |  55                        |
 | Section IX      |       10       |  65                        |
-| Challenge IX    |        5       |  70                        |
+| Challenge IX    |        5       |  70 (<<I got here          |
 | Example         |        2       |  72                        |
 | Section  X      |       10       |  82                        |
 | Challenge  X    |        5       |  87                        |
